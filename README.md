@@ -116,6 +116,7 @@ chmod +x start.sh
 # Backend
 cd backend
 pip install -r requirements.txt
+
 uvicorn main:app --reload --port 8000
 
 # Frontend (new terminal)

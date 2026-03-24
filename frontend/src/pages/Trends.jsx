@@ -9,6 +9,8 @@ import {
 const MONTH_NAMES = ['', 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
+const C = { bg: '#FFFFFF', panel: '#F8F9FB', border: '#E0E6ED', accent: '#0066CC', danger: '#E63946', success: '#00A896', info: '#0096D1', text: '#1A2332', muted: '#556B82', faint: '#B0C0D6' };
+
 // Sort months so Dec 2024 appears first, then Jan–May 2025
 // Dec = month 12 → assign sort order 0; Jan=1 → 1; Feb=2 → 2 … May=5 → 5
 function sortMonths(trends) {
@@ -29,10 +31,11 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
   return (
     <div style={{
-      background: '#0D1520', border: '1px solid rgba(0,212,170,0.2)',
+      background: C.panel, border: `1px solid ${C.border}`,
       borderRadius: 8, padding: '10px 14px',
+      boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
     }}>
-      <div style={{ color: '#00D4AA', fontFamily: 'DM Mono, monospace', fontSize: 12, marginBottom: 6 }}>
+      <div style={{ color: C.accent, fontFamily: 'DM Mono, monospace', fontSize: 12, marginBottom: 6 }}>
         {label}
       </div>
       {payload.map((p, i) => (
@@ -45,14 +48,14 @@ const CustomTooltip = ({ active, payload, label }) => {
 };
 
 // Small insight box shown below each chart
-function Insight({ text, color = '#7A93B4' }) {
+function Insight({ text, color = '#556B82' }) {
   return (
     <div style={{
       marginTop: 10, padding: '8px 12px',
-      background: 'rgba(255,255,255,0.03)',
+      background: 'rgba(26,35,50,0.03)',
       borderLeft: `3px solid ${color}`,
       borderRadius: '0 6px 6px 0',
-      fontSize: 11.5, color: '#7A93B4', lineHeight: 1.6,
+      fontSize: 11.5, color: '#556B82', lineHeight: 1.6,
     }}>
       {text}
     </div>
@@ -91,14 +94,14 @@ export default function Trends() {
 
       {/* Context banner */}
       <div style={{
-        background: 'rgba(0,212,170,0.06)', border: '1px solid rgba(0,212,170,0.15)',
+        background: 'rgba(0, 102, 204, 0.06)', border: '1px solid rgba(0, 102, 204, 0.15)',
         borderRadius: 8, padding: '10px 16px', marginBottom: 18,
-        fontSize: 12, color: '#7A93B4', lineHeight: 1.7,
+        fontSize: 12, color: '#556B82', lineHeight: 1.7,
       }}>
-        <span style={{ color: '#00D4AA', fontWeight: 600 }}>How to read these charts: </span>
-        Each month shows customers whose <strong style={{ color: '#E8F0FE' }}>last recharge fell in that month</strong>.
-        Customers in <strong style={{ color: '#FF6B6B' }}>December 2024</strong> are now 5–6 months inactive
-        → highest churn risk. Customers in <strong style={{ color: '#00D4AA' }}>May 2025</strong> recharged recently
+        <span style={{ color: '#0066CC', fontWeight: 600 }}>How to read these charts: </span>
+        Each month shows customers whose <strong style={{ color: '#1A2332' }}>last recharge fell in that month</strong>.
+        Customers in <strong style={{ color: '#E63946' }}>December 2024</strong> are now 5–6 months inactive
+        → highest churn risk. Customers in <strong style={{ color: '#0066CC' }}>May 2025</strong> recharged recently
         → lowest churn risk. This is not a time-series of events — it is a snapshot grouped by last activity month.
       </div>
 
@@ -111,20 +114,20 @@ export default function Trends() {
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="avgGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#00D4AA" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#00D4AA" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#00A896" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#00A896" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
               <XAxis dataKey="month_label" tick={tick} axisLine={false} tickLine={false} />
               <YAxis tick={tick} axisLine={false} tickLine={false} tickFormatter={v => `$${v}`} />
               <Tooltip content={<CustomTooltip />} />
               <Area type="monotone" dataKey="avg_recharge" name="Avg $"
-                stroke="#00D4AA" fill="url(#avgGrad)" strokeWidth={2} dot={{ fill: '#00D4AA', r: 3 }} />
+                stroke="#00A896" fill="url(#avgGrad)" strokeWidth={2} dot={{ fill: '#00A896', r: 3 }} />
             </AreaChart>
           </ResponsiveContainer>
           <Insight
-            color="#00D4AA"
+            color="#00A896"
             text={`Highest avg recharge in ${maxRechargeMonth.month_label || '—'} ($${(maxRechargeMonth.avg_recharge || 0).toFixed(2)}). Champions and Engaged Regulars — who recharged in earlier months — typically have higher per-transaction values.`}
           />
         </Card>
@@ -136,20 +139,20 @@ export default function Trends() {
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="churnGrad" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#FF6B6B" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="#FF6B6B" stopOpacity={0} />
+                  <stop offset="5%" stopColor="#E63946" stopOpacity={0.3} />
+                  <stop offset="95%" stopColor="#E63946" stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
               <XAxis dataKey="month_label" tick={tick} axisLine={false} tickLine={false} />
               <YAxis tick={tick} axisLine={false} tickLine={false} unit="%" />
               <Tooltip content={<CustomTooltip />} />
               <Area type="monotone" dataKey="churn_pct" name="Risk %"
-                stroke="#FF6B6B" fill="url(#churnGrad)" strokeWidth={2} dot={{ fill: '#FF6B6B', r: 3 }} />
+                stroke="#E63946" fill="url(#churnGrad)" strokeWidth={2} dot={{ fill: '#E63946', r: 3 }} />
             </AreaChart>
           </ResponsiveContainer>
           <Insight
-            color="#FF6B6B"
+            color="#E63946"
             text={`${maxChurnMonth.month_label || '—'} has the highest churn risk (${maxChurnMonth.churn_pct || 0}%) — these customers haven't recharged in 5–6 months. ${minChurnMonth.month_label || '—'} has the lowest (${minChurnMonth.churn_pct || 0}%) as they recharged most recently. This declining pattern from Dec→May reflects the inactivity signal in the risk score.`}
           />
         </Card>
@@ -159,15 +162,15 @@ export default function Trends() {
           <div style={chartTitle}>👥 Customers by Last Recharge Month</div>
           <ResponsiveContainer width="100%" height={210}>
             <BarChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
               <XAxis dataKey="month_label" tick={tick} axisLine={false} tickLine={false} />
               <YAxis tick={tick} axisLine={false} tickLine={false} />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="total_customers" name="Customers" fill="#4ECDC4" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="total_customers" name="Customers" fill="#0096D1" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
           <Insight
-            color="#4ECDC4"
+            color="#0096D1"
             text="Each bar shows how many customers last recharged in that month. Larger bars in recent months (Apr–May) mean more customers are currently active. A large Dec bar would indicate many long-inactive customers needing immediate win-back action."
           />
         </Card>
@@ -177,15 +180,15 @@ export default function Trends() {
           <div style={chartTitle}>💰 Total Recharge Volume ($) by Month</div>
           <ResponsiveContainer width="100%" height={210}>
             <BarChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+              <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
               <XAxis dataKey="month_label" tick={tick} axisLine={false} tickLine={false} />
               <YAxis tick={tick} axisLine={false} tickLine={false} tickFormatter={v => `$${(v/1000).toFixed(0)}k`} />
               <Tooltip content={<CustomTooltip />} />
-              <Bar dataKey="total_recharge" name="Total $" fill="#A29BFE" radius={[4, 4, 0, 0]} />
+              <Bar dataKey="total_recharge" name="Total $" fill="#6B5BED" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
           <Insight
-            color="#A29BFE"
+            color="#6B5BED"
             text={`Total recharge revenue across all 6 months: $${totalRevenue.toLocaleString(undefined, { maximumFractionDigits: 0 })}. Months with both high customer count and high avg recharge value generate the most revenue. Low Dec revenue despite high churn risk signals a declining cohort.`}
           />
         </Card>
@@ -195,5 +198,5 @@ export default function Trends() {
   );
 }
 
-const tick      = { fill: '#7A93B4', fontSize: 11, fontFamily: 'DM Mono, monospace' };
-const chartTitle = { fontSize: 13, fontWeight: 600, color: '#E8F0FE', marginBottom: 14 };
+const tick      = { fill: '#556B82', fontSize: 11, fontFamily: 'DM Mono, monospace' };
+const chartTitle = { fontSize: 13, fontWeight: 600, color: '#1A2332', marginBottom: 14 };

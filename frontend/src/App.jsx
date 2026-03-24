@@ -27,35 +27,36 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <div style={{ display: 'flex', minHeight: '100vh', background: '#080C14' }}>
+      <div style={{ display: 'flex', minHeight: '100vh', background: '#FFFFFF' }}>
         <Sidebar status={status} />
         <main style={{
           flex: 1, padding: '28px 28px 28px 24px',
           overflowY: 'auto', maxHeight: '100vh',
+          background: '#FAFBFC',
         }}>
           {/* Top bar */}
           <div style={{
             display: 'flex', justifyContent: 'space-between', alignItems: 'center',
             marginBottom: 24, paddingBottom: 16,
-            borderBottom: '1px solid rgba(0,212,170,0.08)',
+            borderBottom: '1px solid #E0E6ED',
           }}>
-            <div style={{ fontSize: 11, color: '#3D5266', fontFamily: 'DM Mono, monospace' }}>
+            <div style={{ fontSize: 11, color: '#B0C0D6', fontFamily: 'DM Mono, monospace' }}>
               TELECOM CHURN AI PLATFORM  ·  v1.0
             </div>
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
               {status?.ready && (
                 <>
-                  <span style={{ fontSize: 11, color: '#3D5266', fontFamily: 'DM Mono, monospace' }}>
+                  <span style={{ fontSize: 11, color: '#B0C0D6', fontFamily: 'DM Mono, monospace' }}>
                     Model: {status.model}
                   </span>
-                  <span style={{ width: 4, height: 4, borderRadius: '50%', background: '#3D5266' }} />
-                  <span style={{ fontSize: 11, color: '#3D5266', fontFamily: 'DM Mono, monospace' }}>
+                  <span style={{ width: 4, height: 4, borderRadius: '50%', background: '#B0C0D6' }} />
+                  <span style={{ fontSize: 11, color: '#B0C0D6', fontFamily: 'DM Mono, monospace' }}>
                     {status.vector_docs} vector docs
                   </span>
                 </>
               )}
               {!status?.ready && (
-                <span style={{ fontSize: 11, color: '#FFB347', fontFamily: 'DM Mono, monospace' }}>
+                <span style={{ fontSize: 11, color: '#FF9500', fontFamily: 'DM Mono, monospace' }}>
                   ⟳ Pipeline initializing…
                 </span>
               )}

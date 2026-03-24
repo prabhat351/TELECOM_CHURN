@@ -10,15 +10,16 @@ import { uploadAnalystFile, askAnalystQuestion, downloadCleanData, downloadRepor
 
 // ── helpers ──────────────────────────────────────────────────
 const C = {
-  bg: '#080C14', panel: '#0A1220', border: 'rgba(0,212,170,0.1)',
-  accent: '#00D4AA', warn: '#FFB347', danger: '#FF6B6B',
-  text: '#E8F0FE', muted: '#7A93B4', faint: '#3D5266',
-  green: '#4ADE80', purple: '#A78BFA',
+  bg: '#FFFFFF', panel: '#F8F9FB', border: '#E0E6ED',
+  accent: '#0066CC', warn: '#FF9500', danger: '#E63946',
+  text: '#1A2332', muted: '#556B82', faint: '#B0C0D6',
+  green: '#00A896', purple: '#6B5BED',
 };
 
 const card = {
   background: C.panel, border: `1px solid ${C.border}`,
   borderRadius: 12, padding: '20px 24px', marginBottom: 20,
+  boxShadow: '0 1px 3px rgba(0,0,0,0.05)',
 };
 
 const severityColor = (s) =>

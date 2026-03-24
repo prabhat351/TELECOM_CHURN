@@ -8,10 +8,10 @@ import {
 import { Brain } from 'lucide-react';
 
 const SEG_COLORS = {
-  'Champions':           '#00D4AA',
-  'Engaged Regulars':    '#4ECDC4',
-  'At-Risk Subscribers': '#FFB347',
-  'Dormant Churners':    '#FF6B6B',
+  'Champions':           '#00A896',
+  'Engaged Regulars':    '#0066CC',
+  'At-Risk Subscribers': '#FF9500',
+  'Dormant Churners':    '#E63946',
 };
 
 export default function Segments() {
@@ -65,11 +65,11 @@ export default function Segments() {
                 background: SEG_COLORS[seg.segment] || '#888',
                 boxShadow: `0 0 8px ${SEG_COLORS[seg.segment] || '#888'}`,
               }} />
-              <span style={{ fontSize: 11, color: '#7A93B4', fontFamily: 'DM Mono, monospace' }}>
+              <span style={{ fontSize: 11, color: '#556B82', fontFamily: 'DM Mono, monospace' }}>
                 {seg.pct}%
               </span>
             </div>
-            <div style={{ fontSize: 14, fontWeight: 700, color: '#E8F0FE', marginBottom: 10, lineHeight: 1.3 }}>
+            <div style={{ fontSize: 14, fontWeight: 700, color: '#1A2332', marginBottom: 10, lineHeight: 1.3 }}>
               {seg.segment}
             </div>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -83,8 +83,8 @@ export default function Segments() {
             </div>
             <button style={{
               marginTop: 12, width: '100%', padding: '6px', borderRadius: 6,
-              background: 'rgba(0,212,170,0.08)', border: '1px solid rgba(0,212,170,0.2)',
-              color: '#00D4AA', fontSize: 11, cursor: 'pointer', display: 'flex',
+              background: 'rgba(0, 102, 204, 0.08)', border: '1px solid rgba(0, 102, 204, 0.2)',
+              color: '#0066CC', fontSize: 11, cursor: 'pointer', display: 'flex',
               alignItems: 'center', justifyContent: 'center', gap: 5,
             }}>
               <Brain size={12} /> AI Insight
@@ -95,14 +95,14 @@ export default function Segments() {
 
       {/* AI Insight Panel */}
       {insight.seg && (
-        <Card style={{ marginBottom: 24, borderColor: 'rgba(0,212,170,0.25)' }} glow>
+        <Card style={{ marginBottom: 24, borderColor: 'rgba(0, 102, 204, 0.25)' }} glow>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-            <Brain size={16} color="#00D4AA" />
-            <span style={{ fontWeight: 600, color: '#00D4AA' }}>AI Insight: {insight.seg}</span>
+            <Brain size={16} color="#0066CC" />
+            <span style={{ fontWeight: 600, color: '#0066CC' }}>AI Insight: {insight.seg}</span>
           </div>
           {insight.loading
             ? <Loader text="Generating AI insight…" />
-            : <div style={{ color: '#CBD5E0', fontSize: 13, lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
+            : <div style={{ color: '#1A2332', fontSize: 13, lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
                 {insight.text}
               </div>
           }
@@ -111,29 +111,29 @@ export default function Segments() {
 
       {/* Scatter Plot */}
       <Card>
-        <div style={{ fontSize: 13, fontWeight: 600, color: '#E8F0FE', marginBottom: 14 }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: '#1A2332', marginBottom: 14 }}>
           🎯 Customer Behaviour Scatter — Engagement Score vs Recharge Value
         </div>
         <ResponsiveContainer width="100%" height={340}>
           <ScatterChart>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" />
+            <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.05)" />
             <XAxis dataKey="x" name="Engagement Score" tick={tick} axisLine={false} tickLine={false} type="number" domain={[0,1]} />
             <YAxis dataKey="y" name="Avg $" tick={tick} axisLine={false} tickLine={false} />
-            <Tooltip cursor={{ stroke: 'rgba(0,212,170,0.3)' }}
+            <Tooltip cursor={{ stroke: 'rgba(0, 102, 204, 0.3)' }}
               content={({ payload }) => {
                 if (!payload?.length) return null;
                 const d = payload[0].payload;
                 return (
-                  <div style={{ background: '#0D1520', border: '1px solid rgba(0,212,170,0.2)', borderRadius: 8, padding: '8px 12px' }}>
-                    <div style={{ fontSize: 12, color: '#00D4AA', marginBottom: 4 }}>Customer</div>
-                    <div style={{ fontSize: 11, color: '#7A93B4' }}>Engagement: {d.x?.toFixed(3)}</div>
-                    <div style={{ fontSize: 11, color: '#7A93B4' }}>Avg $: {d.y?.toFixed(0)}</div>
-                    <div style={{ fontSize: 11, color: '#FF6B6B' }}>Churn: {((d.prob||0)*100).toFixed(1)}%</div>
+                  <div style={{ background: '#F8F9FB', border: '1px solid rgba(0, 102, 204, 0.2)', borderRadius: 8, padding: '8px 12px' }}>
+                    <div style={{ fontSize: 12, color: '#0066CC', marginBottom: 4 }}>Customer</div>
+                    <div style={{ fontSize: 11, color: '#556B82' }}>Engagement: {d.x?.toFixed(3)}</div>
+                    <div style={{ fontSize: 11, color: '#556B82' }}>Avg $: {d.y?.toFixed(0)}</div>
+                    <div style={{ fontSize: 11, color: '#E63946' }}>Churn: {((d.prob||0)*100).toFixed(1)}%</div>
                   </div>
                 );
               }}
             />
-            <Legend formatter={(v) => <span style={{ color: '#7A93B4', fontSize: 11 }}>{v}</span>} />
+            <Legend formatter={(v) => <span style={{ color: '#556B82', fontSize: 11 }}>{v}</span>} />
             {Object.entries(segGroups).map(([seg, pts]) => (
               <Scatter key={seg} name={seg} data={pts} fill={SEG_COLORS[seg] || '#888'} opacity={0.7} />
             ))}
@@ -147,10 +147,10 @@ export default function Segments() {
 function Metric({ label, value, color }) {
   return (
     <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 12 }}>
-      <span style={{ color: '#7A93B4' }}>{label}</span>
-      <span style={{ color: color || '#E8F0FE', fontFamily: 'DM Mono, monospace', fontWeight: 600 }}>{value}</span>
+      <span style={{ color: '#556B82' }}>{label}</span>
+      <span style={{ color: color || '#1A2332', fontFamily: 'DM Mono, monospace', fontWeight: 600 }}>{value}</span>
     </div>
   );
 }
 
-const tick = { fill: '#7A93B4', fontSize: 11, fontFamily: 'DM Mono, monospace' };
+const tick = { fill: '#556B82', fontSize: 11, fontFamily: 'DM Mono, monospace' };

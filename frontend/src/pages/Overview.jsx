@@ -6,6 +6,20 @@ import {
   Activity, Shield, Zap, CheckCircle, XCircle, Info
 } from 'lucide-react';
 
+const COLORS = {
+  accent: '#0066CC',
+  danger: '#E63946',
+  warning: '#FF9500',
+  success: '#00A896',
+  info: '#0096D1',
+  muted: '#556B82',
+  faint: '#B0C0D6',
+  text: '#1A2332',
+  bg: '#FFFFFF',
+  panel: '#F8F9FB',
+  border: '#E0E6ED',
+};
+
 export default function Overview() {
   const [kpis, setKpis] = useState(null);
   const [validation, setValidation] = useState(null);
@@ -38,28 +52,28 @@ export default function Overview() {
           label="Total Customers"
           value={kpis?.total_customers?.toLocaleString()}
           icon={Users}
-          color="#4ECDC4"
+          color={COLORS.accent}
           sub="Analysed in pipeline"
         />
         <KPICard
           label="Churn Rate"
           value={`${((kpis?.churn_rate || 0) * 100).toFixed(1)}%`}
           icon={TrendingDown}
-          color="#FF6B6B"
+          color={COLORS.danger}
           sub="Predicted churn"
         />
         <KPICard
           label="High Risk"
           value={kpis?.high_risk_customers?.toLocaleString()}
           icon={AlertTriangle}
-          color="#FFB347"
+          color={COLORS.warning}
           sub="Prob > 70%"
         />
         <KPICard
           label="Avg Recharge"
           value={`$${kpis?.avg_recharge_value?.toFixed(0)}`}
           icon={DollarSign}
-          color="#00D4AA"
+          color={COLORS.success}
           sub="Per customer"
         />
       </div>
@@ -70,28 +84,28 @@ export default function Overview() {
           label="Avg Active Days"
           value={kpis?.avg_active_days?.toFixed(1)}
           icon={Activity}
-          color="#74B9FF"
+          color={COLORS.info}
           sub="Last 30 days"
         />
         <KPICard
           label="Avg Churn Prob"
           value={`${((kpis?.avg_churn_probability || 0) * 100).toFixed(1)}%`}
           icon={Shield}
-          color="#FF6B6B"
+          color={COLORS.danger}
           sub="ML prediction"
         />
         <KPICard
           label="Agent Actions"
           value={ag.total_actions?.toLocaleString() || 0}
           icon={Zap}
-          color="#A29BFE"
+          color="#6B5BED"
           sub="Triggered by AI"
         />
         <KPICard
           label="Critical Alerts"
           value={ag.critical || 0}
           icon={AlertTriangle}
-          color="#FF6B6B"
+          color={COLORS.danger}
           sub="Immediate action"
         />
       </div>

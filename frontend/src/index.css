@@ -1,23 +1,23 @@
 /* ─── Design Tokens ─────────────────────────────────────── */
 :root {
-  --bg-deep:      #080C14;
-  --bg-surface:   #0D1520;
-  --bg-card:      #111B2B;
-  --bg-card-alt:  #142035;
-  --border:       rgba(0,212,170,0.12);
-  --border-hover: rgba(0,212,170,0.3);
+  --bg-deep:      #FFFFFF;
+  --bg-surface:   #F8F9FB;
+  --bg-card:      #FFFFFF;
+  --bg-card-alt:  #F8F9FB;
+  --border:       #E0E6ED;
+  --border-hover: #D0D8E6;
 
-  --accent:       #00D4AA;
-  --accent-dim:   rgba(0,212,170,0.15);
-  --accent-glow:  rgba(0,212,170,0.35);
-  --accent2:      #4ECDC4;
-  --danger:       #FF6B6B;
-  --warning:      #FFB347;
-  --info:         #74B9FF;
+  --accent:       #0066CC;
+  --accent-dim:   rgba(0, 102, 204, 0.12);
+  --accent-glow:  rgba(0, 102, 204, 0.25);
+  --accent2:      #0096D1;
+  --danger:       #E63946;
+  --warning:      #FF9500;
+  --info:         #0096D1;
 
-  --text-primary: #E8F0FE;
-  --text-secondary: #7A93B4;
-  --text-muted:   #3D5266;
+  --text-primary: #1A2332;
+  --text-secondary: #556B82;
+  --text-muted:   #B0C0D6;
 
   --font-display: 'Syne', sans-serif;
   --font-body:    'Space Grotesk', sans-serif;
@@ -27,8 +27,8 @@
   --radius-md: 12px;
   --radius-lg: 20px;
 
-  --shadow-card: 0 4px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(0,212,170,0.07);
-  --shadow-glow: 0 0 40px rgba(0,212,170,0.15);
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.08), 0 0 0 1px rgba(0, 102, 204, 0.08);
+  --shadow-glow: 0 0 40px rgba(0, 102, 204, 0.15);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

@@ -3,6 +3,8 @@ import { getAgentActions } from '../utils/api';
 import { Card, SectionHeader, Loader, RiskBadge } from '../components/Cards';
 import { Bot, Zap, AlertTriangle, CheckCircle } from 'lucide-react';
 
+const C = { accent: '#0066CC', danger: '#E63946', warning: '#FF9500', success: '#00A896', muted: '#556B82', text: '#1A2332' };
+
 export default function Agents() {
   const [actions, setActions] = useState([]);
   const [summary, setSummary] = useState({});
@@ -18,7 +20,7 @@ export default function Agents() {
 
   const filtered = filter === 'All' ? actions : actions.filter(a => a.priority === filter);
 
-  const priorityColor = { Critical: '#FF6B6B', High: '#FFB347', Medium: '#74B9FF', Low: '#00D4AA' };
+  const priorityColor = { Critical: '#E63946', High: '#FF9500', Medium: '#0096D1', Low: '#00A896' };
 
   return (
     <div style={{ animation: 'fadeUp 0.4s ease both' }}>
@@ -27,16 +29,16 @@ export default function Agents() {
       {/* Summary */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5,1fr)', gap: 14, marginBottom: 24 }}>
         {[
-          { label: 'Total Actions', val: summary.total_actions, color: '#E8F0FE', icon: Bot },
-          { label: 'Critical', val: summary.critical, color: '#FF6B6B', icon: AlertTriangle },
-          { label: 'High', val: summary.high, color: '#FFB347', icon: Zap },
-          { label: 'Medium', val: summary.medium, color: '#74B9FF', icon: Zap },
-          { label: 'Campaigns', val: summary.retention_campaigns_triggered, color: '#00D4AA', icon: CheckCircle },
+          { label: 'Total Actions', val: summary.total_actions, color: '#1A2332', icon: Bot },
+          { label: 'Critical', val: summary.critical, color: '#E63946', icon: AlertTriangle },
+          { label: 'High', val: summary.high, color: '#FF9500', icon: Zap },
+          { label: 'Medium', val: summary.medium, color: '#0096D1', icon: Zap },
+          { label: 'Campaigns', val: summary.retention_campaigns_triggered, color: '#00A896', icon: CheckCircle },
         ].map(({ label, val, color, icon: Icon }) => (
           <Card key={label} style={{ textAlign: 'center', padding: '16px 12px' }}>
             <Icon size={20} color={color} style={{ marginBottom: 8 }} />
             <div style={{ fontSize: 24, fontWeight: 800, color, fontFamily: 'Syne, sans-serif' }}>{val || 0}</div>
-            <div style={{ fontSize: 11, color: '#7A93B4', marginTop: 3, fontFamily: 'DM Mono, monospace' }}>{label}</div>
+            <div style={{ fontSize: 11, color: '#556B82', marginTop: 3, fontFamily: 'DM Mono, monospace' }}>{label}</div>
           </Card>
         ))}
       </div>
@@ -46,9 +48,9 @@ export default function Agents() {
         {['All', 'Critical', 'High', 'Medium', 'Low'].map(p => (
           <button key={p} onClick={() => setFilter(p)} style={{
             padding: '6px 14px', borderRadius: 20, border: 'none', cursor: 'pointer', fontSize: 12,
-            background: filter === p ? (priorityColor[p] || 'rgba(0,212,170,0.2)') + '25' : 'rgba(255,255,255,0.04)',
-            color: filter === p ? (priorityColor[p] || '#00D4AA') : '#7A93B4',
-            border: `1px solid ${filter === p ? (priorityColor[p] || '#00D4AA') + '40' : 'transparent'}`,
+            background: filter === p ? (priorityColor[p] || 'rgba(0, 102, 204, 0.2)') + '25' : 'rgba(0,0,0,0.02)',
+            color: filter === p ? (priorityColor[p] || '#0066CC') : '#556B82',
+            border: `1px solid ${filter === p ? (priorityColor[p] || '#0066CC') + '40' : 'transparent'}`,
             transition: 'all 0.15s', fontFamily: 'DM Mono, monospace',
           }}>
             {p}

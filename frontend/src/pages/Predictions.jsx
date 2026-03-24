@@ -3,6 +3,7 @@ import { getPredictions } from '../utils/api';
 import { Card, SectionHeader, Loader, RiskBadge } from '../components/Cards';
 import { Search, Filter } from 'lucide-react';
 
+const C = { bg: '#FFFFFF', panel: '#F8F9FB', border: '#E0E6ED', accent: '#0066CC', muted: '#556B82', faint: '#B0C0D6', text: '#1A2332' };
 const RISK_LEVELS = ['All', 'Critical', 'High', 'Medium', 'Low'];
 const SEGMENTS = ['All', 'Champions', 'Engaged Regulars', 'At-Risk Subscribers', 'Dormant Churners'];
 
@@ -39,7 +40,7 @@ export default function Predictions() {
       {/* Filters */}
       <div style={filterBar}>
         <div style={searchWrap}>
-          <Search size={14} color="#7A93B4" />
+          <Search size={14} color="#556B82" />
           <input
             value={search}
             onChange={e => setSearch(e.target.value)}
@@ -55,8 +56,8 @@ export default function Predictions() {
 
       <Card style={{ marginTop: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 14, alignItems: 'center' }}>
-          <span style={{ fontSize: 13, color: '#7A93B4' }}>
-            Showing <strong style={{ color: '#00D4AA' }}>{filtered.length}</strong> of {total.toLocaleString()} customers
+          <span style={{ fontSize: 13, color: '#556B82' }}>
+            Showing <strong style={{ color: '#0066CC' }}>{filtered.length}</strong> of {total.toLocaleString()} customers
           </span>
         </div>
 
@@ -72,8 +73,8 @@ export default function Predictions() {
               </thead>
               <tbody>
                 {filtered.slice(0, 200).map((row, i) => (
-                  <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.03)' }}
-                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(0,212,170,0.04)'}
+                  <tr key={i} style={{ borderBottom: '1px solid #E0E6ED' }}
+                    onMouseEnter={e => e.currentTarget.style.background = 'rgba(0, 102, 204, 0.03)'}
                     onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
                     <td style={{ ...tdStyle, fontFamily: 'DM Mono, monospace', fontSize: 11, maxWidth: 140, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                       {row.Customer_id}
@@ -94,7 +95,7 @@ export default function Predictions() {
                       </div>
                     </td>
                     <td style={tdStyle}><RiskBadge level={row.risk_level} /></td>
-                    <td style={{ ...tdStyle, fontSize: 12, color: '#7A93B4', maxWidth: 140, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{row.segment}</td>
+                    <td style={{ ...tdStyle, fontSize: 12, color: '#556B82', maxWidth: 140, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{row.segment}</td>
                     <td style={{ ...tdStyle, fontFamily: 'DM Mono, monospace', textAlign: 'center' }}>{row.days_since_last_recharge}</td>
                     <td style={{ ...tdStyle, fontFamily: 'DM Mono, monospace', textAlign: 'center' }}>{row.recharge_frequency}</td>
                     <td style={{ ...tdStyle, fontFamily: 'DM Mono, monospace' }}>${row.avg_recharge_value?.toFixed(0)}</td>
@@ -118,13 +119,13 @@ export default function Predictions() {
 function FilterGroup({ label, options, value, onChange }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
-      <span style={{ fontSize: 11, color: '#7A93B4', fontFamily: 'DM Mono, monospace' }}>{label}:</span>
+      <span style={{ fontSize: 11, color: '#556B82', fontFamily: 'DM Mono, monospace' }}>{label}:</span>
       {options.map(o => (
         <button key={o} onClick={() => onChange(o)} style={{
           padding: '4px 10px', borderRadius: 6, border: 'none', cursor: 'pointer',
           fontSize: 11, fontFamily: 'DM Mono, monospace',
-          background: value === o ? 'rgba(0,212,170,0.15)' : 'rgba(255,255,255,0.05)',
-          color: value === o ? '#00D4AA' : '#7A93B4',
+          background: value === o ? 'rgba(0, 102, 204, 0.12)' : 'rgba(0,0,0,0.02)',
+          color: value === o ? '#0066CC' : '#556B82',
           transition: 'all 0.15s',
         }}>{o}</button>
       ))}
@@ -134,33 +135,33 @@ function FilterGroup({ label, options, value, onChange }) {
 
 const probColor = (p) => {
   if (!p) return '#888';
-  if (p >= 0.8) return '#FF6B6B';
-  if (p >= 0.6) return '#FFB347';
-  if (p >= 0.4) return '#74B9FF';
-  return '#00D4AA';
+  if (p >= 0.8) return '#E63946';
+  if (p >= 0.6) return '#FF9500';
+  if (p >= 0.4) return '#0096D1';
+  return '#00A896';
 };
 const engColor = (e) => {
   if (!e) return '#888';
-  if (e >= 0.7) return '#00D4AA';
-  if (e >= 0.4) return '#74B9FF';
-  return '#FFB347';
+  if (e >= 0.7) return '#00A896';
+  if (e >= 0.4) return '#0096D1';
+  return '#FF9500';
 };
 
 const filterBar = { display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' };
 const searchWrap = {
   display: 'flex', alignItems: 'center', gap: 8,
-  background: '#0D1520', border: '1px solid rgba(0,212,170,0.15)',
+  background: '#F8F9FB', border: '1px solid rgba(0, 102, 204, 0.2)',
   borderRadius: 8, padding: '7px 12px', minWidth: 220,
 };
 const searchInput = {
   background: 'none', border: 'none', outline: 'none',
-  color: '#E8F0FE', fontSize: 13, fontFamily: 'DM Mono, monospace', flex: 1,
+  color: '#1A2332', fontSize: 13, fontFamily: 'DM Mono, monospace', flex: 1,
 };
 const tableStyle = { width: '100%', borderCollapse: 'collapse' };
 const thStyle = {
   padding: '8px 10px', textAlign: 'left', fontSize: 11,
-  color: '#7A93B4', fontFamily: 'DM Mono, monospace', letterSpacing: 0.5,
-  borderBottom: '1px solid rgba(255,255,255,0.06)', fontWeight: 500,
+  color: '#556B82', fontFamily: 'DM Mono, monospace', letterSpacing: 0.5,
+  borderBottom: '1px solid #E0E6ED', fontWeight: 500,
   textTransform: 'uppercase',
 };
-const tdStyle = { padding: '10px 10px', fontSize: 13, color: '#E8F0FE', verticalAlign: 'middle' };
+const tdStyle = { padding: '10px 10px', fontSize: 13, color: '#1A2332', verticalAlign: 'middle' };

@@ -3,6 +3,8 @@ import { sendChat } from '../utils/api';
 import { Card, SectionHeader } from '../components/Cards';
 import { Send, Bot, User, Sparkles, RefreshCw } from 'lucide-react';
 
+const C = { accent: '#0066CC', success: '#00A896', info: '#0096D1', text: '#1A2332', muted: '#556B82', faint: '#B0C0D6', panel: '#F8F9FB', border: '#E0E6ED' };
+
 const SUGGESTIONS = [
   "Why are customers in the High Churn Risk segment churning?",
   "What retention strategies work best for low activity users?",
@@ -77,22 +79,22 @@ export default function Chat() {
               flexDirection: msg.role === 'user' ? 'row-reverse' : 'row' }}>
               <div style={{
                 width: 32, height: 32, borderRadius: '50%', flexShrink: 0,
-                background: msg.role === 'user' ? 'rgba(116,185,255,0.15)' : 'rgba(0,212,170,0.15)',
-                border: `1px solid ${msg.role === 'user' ? 'rgba(116,185,255,0.3)' : 'rgba(0,212,170,0.3)'}`,
+                background: msg.role === 'user' ? 'rgba(0, 102, 204, 0.12)' : 'rgba(0, 168, 150, 0.12)',
+                border: `1px solid ${msg.role === 'user' ? 'rgba(0, 102, 204, 0.25)' : 'rgba(0, 168, 150, 0.25)'}`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
                 {msg.role === 'user'
-                  ? <User size={15} color="#74B9FF" />
-                  : <Bot size={15} color="#00D4AA" />}
+                  ? <User size={15} color="#0066CC" />
+                  : <Bot size={15} color="#00A896" />}
               </div>
               <div style={{
                 maxWidth: '78%',
-                background: msg.role === 'user' ? 'rgba(116,185,255,0.08)' : 'rgba(0,212,170,0.06)',
-                border: `1px solid ${msg.role === 'user' ? 'rgba(116,185,255,0.15)' : 'rgba(0,212,170,0.12)'}`,
+                background: msg.role === 'user' ? 'rgba(0, 102, 204, 0.08)' : 'rgba(0, 168, 150, 0.06)',
+                border: `1px solid ${msg.role === 'user' ? 'rgba(0, 102, 204, 0.2)' : 'rgba(0, 168, 150, 0.15)'}`,
                 borderRadius: msg.role === 'user' ? '14px 4px 14px 14px' : '4px 14px 14px 14px',
                 padding: '12px 16px',
               }}>
-                <div style={{ fontSize: 13, color: '#CBD5E0', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
+                <div style={{ fontSize: 13, color: '#1A2332', lineHeight: 1.7, whiteSpace: 'pre-wrap' }}>
                   {msg.text}
                 </div>
               </div>
@@ -103,15 +105,15 @@ export default function Chat() {
             <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
               <div style={{
                 width: 32, height: 32, borderRadius: '50%',
-                background: 'rgba(0,212,170,0.15)', border: '1px solid rgba(0,212,170,0.3)',
+                background: 'rgba(0, 168, 150, 0.12)', border: '1px solid rgba(0, 168, 150, 0.25)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
               }}>
-                <Bot size={15} color="#00D4AA" />
+                <Bot size={15} color="#00A896" />
               </div>
-              <div style={{ display: 'flex', gap: 6, padding: '14px 16px', background: 'rgba(0,212,170,0.06)', border: '1px solid rgba(0,212,170,0.12)', borderRadius: '4px 14px 14px 14px' }}>
+              <div style={{ display: 'flex', gap: 6, padding: '14px 16px', background: 'rgba(0, 168, 150, 0.06)', border: '1px solid rgba(0, 168, 150, 0.12)', borderRadius: '4px 14px 14px 14px' }}>
                 {[0, 0.15, 0.3].map(delay => (
                   <div key={delay} style={{
-                    width: 7, height: 7, borderRadius: '50%', background: '#00D4AA',
+                    width: 7, height: 7, borderRadius: '50%', background: '#00A896',
                     animation: 'pulse-ring 1.2s ease infinite',
                     animationDelay: `${delay}s`,
                   }} />
@@ -143,30 +145,30 @@ export default function Chat() {
 
 const resetBtn = {
   display: 'flex', alignItems: 'center', gap: 6, padding: '7px 14px',
-  borderRadius: 8, border: '1px solid rgba(255,255,255,0.1)',
-  background: 'rgba(255,255,255,0.04)', color: '#7A93B4',
+  borderRadius: 8, border: '1px solid rgba(0, 102, 204, 0.2)',
+  background: 'rgba(0, 102, 204, 0.08)', color: '#0066CC',
   cursor: 'pointer', fontSize: 12, fontFamily: 'DM Mono, monospace',
 };
 const sugBtn = {
   display: 'flex', alignItems: 'center', gap: 5,
-  padding: '5px 12px', borderRadius: 20, border: '1px solid rgba(0,212,170,0.15)',
-  background: 'rgba(0,212,170,0.06)', color: '#7A93B4',
+  padding: '5px 12px', borderRadius: 20, border: '1px solid rgba(0, 102, 204, 0.15)',
+  background: 'rgba(0, 102, 204, 0.06)', color: '#556B82',
   cursor: 'pointer', fontSize: 11, fontFamily: 'DM Mono, monospace',
   transition: 'all 0.15s', whiteSpace: 'nowrap',
 };
 const inputBar = {
-  padding: '14px 16px', borderTop: '1px solid rgba(0,212,170,0.1)',
+  padding: '14px 16px', borderTop: '1px solid #E0E6ED',
   display: 'flex', gap: 10, alignItems: 'center',
 };
 const inputStyle = {
-  flex: 1, background: 'rgba(255,255,255,0.04)',
-  border: '1px solid rgba(0,212,170,0.15)', borderRadius: 10,
-  padding: '10px 14px', color: '#E8F0FE', fontSize: 13,
+  flex: 1, background: '#F8F9FB',
+  border: '1px solid rgba(0, 102, 204, 0.15)', borderRadius: 10,
+  padding: '10px 14px', color: '#1A2332', fontSize: 13,
   fontFamily: 'Space Grotesk, sans-serif', outline: 'none',
 };
 const sendBtn = {
   width: 40, height: 40, borderRadius: 10, border: 'none',
-  background: 'rgba(0,212,170,0.15)', color: '#00D4AA',
+  background: 'rgba(0, 102, 204, 0.12)', color: '#0066CC',
   cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
   transition: 'all 0.15s', flexShrink: 0,
 };
